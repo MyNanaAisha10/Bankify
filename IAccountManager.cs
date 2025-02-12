@@ -2,14 +2,14 @@ namespace BankApp;
 
 public interface IAccountManager
 {
-    public void CreateAccount();
-    public void Login();
-    public void Deposit();
-    public void Withdraw();
-    public void Transfer();
-    public void CheckBalance();
-    public void ViewProfile();
-    public void EditProfile();
-    public void DeleteAccount();
-    public void Logout();
+    void CreateAccount();
+    void Login();
+    void Deposit(string accountNumber, decimal amount);
+    void Withdraw(string accountNumber, decimal amount);
+    void Transfer(string senderAccountNumber, string recipientAccountNumber, decimal amount);
+    void CheckBalance(string accountNumber);
+    void ViewProfile(string accountNumber);
+    void EditProfile(string accountNumber);
+    void DeleteAccount(string accountNumber);
+    void Logout();
 }
