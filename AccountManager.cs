@@ -1,4 +1,4 @@
-using System;
+using Bankify;
 using System.Collections.Generic;
 
 namespace BankApp;
@@ -61,7 +61,7 @@ public class AccountManager : IAccountManager
         Console.WriteLine("Enter your password:");
         string password = Console.ReadLine()!;
 
-        Account account = accounts.Find(acc => acc.AccountNumber == accountNumber && acc.Profile.Password == password);
+        Account account = accounts.Find(acc => acc.AccountNumber == accountNumber && acc.Profile.Password == password)!;
 
         if (account != null)
         {
@@ -74,7 +74,7 @@ public class AccountManager : IAccountManager
         }
     }
 
-    public void Deposit()
+    public void Deposit(string accountNumber, decimal amount)
     {
         if (currentAccount == null)
         {
@@ -83,7 +83,7 @@ public class AccountManager : IAccountManager
         }
 
         Console.WriteLine("Enter the amount to deposit:");
-        if (!decimal.TryParse(Console.ReadLine(), out decimal amount))
+        if (!decimal.TryParse(Console.ReadLine(), out amount))
         {
             Console.WriteLine("Invalid amount. Please enter a valid number.");
             return;
@@ -93,7 +93,7 @@ public class AccountManager : IAccountManager
         Console.WriteLine($"Deposit successful! New balance: {currentAccount.Balance}");
     }
 
-    public void Withdraw()
+    public void Withdraw(string accountNumber, decimal balance)
     {
         if (currentAccount == null)
         {
@@ -119,7 +119,7 @@ public class AccountManager : IAccountManager
         }
     }
 
-    public void Transfer()
+    public void Transfer(string senderAccountNumber, string recipientAccountNumber, decimal amount)
     {
         if (currentAccount == null)
         {
@@ -128,16 +128,16 @@ public class AccountManager : IAccountManager
         }
 
         Console.WriteLine("Enter the recipient's account number:");
-        string recipientAccountNumber = Console.ReadLine()!;
+         recipientAccountNumber = Console.ReadLine()!;
 
         Console.WriteLine("Enter the amount to transfer:");
-        if (!decimal.TryParse(Console.ReadLine(), out decimal amount))
+        if (!decimal.TryParse(Console.ReadLine(), out amount))
         {
             Console.WriteLine("Invalid amount. Please enter a valid number.");
             return;
         }
 
-        Account recipientAccount = accounts.Find(acc => acc.AccountNumber == recipientAccountNumber);
+        Account recipientAccount = accounts.Find(acc => acc.AccountNumber == recipientAccountNumber)!;
 
         if (recipientAccount == null)
         {
@@ -157,7 +157,7 @@ public class AccountManager : IAccountManager
         }
     }
 
-    public void CheckBalance()
+    public void CheckBalance(string accountNumber)
     {
         if (currentAccount == null)
         {
@@ -168,7 +168,7 @@ public class AccountManager : IAccountManager
         Console.WriteLine($"Your current balance is: {currentAccount.Balance}");
     }
 
-    public void ViewProfile()
+    public void ViewProfile(string accountNumber)
     {
         if (currentAccount == null)
         {
@@ -179,7 +179,7 @@ public class AccountManager : IAccountManager
         currentAccount.Profile.DisplayProfile();
     }
 
-    public void EditProfile()
+    public void EditProfile(string accountNumber)
     {
         if (currentAccount == null)
         {
@@ -190,7 +190,7 @@ public class AccountManager : IAccountManager
         currentAccount.Profile.EditProfile();
     }
 
-    public void DeleteAccount()
+    public void DeleteAccount(string accountNumber)
     {
         if (currentAccount == null)
         {
@@ -199,7 +199,7 @@ public class AccountManager : IAccountManager
         }
 
         accounts.Remove(currentAccount);
-        currentAccount = null;
+        currentAccount = null!;
         Console.WriteLine("Account deleted successfully!");
     }
 
