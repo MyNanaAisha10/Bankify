@@ -38,7 +38,7 @@ public class AccountManager : IAccountManager
 
         BankFeatures profile = new BankFeatures(firstName!, lastName!, phoneNumber!, email!, password!, accountType!, gender!);
 
-        string accountNumber = Guid.NewGuid().ToString("N").Substring(0, 10);
+        string accountNumber = phoneNumber.Substring(1);
 
         Console.WriteLine("Enter initial deposit:");
         if (!decimal.TryParse(Console.ReadLine(), out decimal balance))
@@ -211,7 +211,7 @@ public class AccountManager : IAccountManager
             return;
         }
 
-        currentAccount = null;
+        currentAccount = null!;
         Console.WriteLine("Logged out successfully!");
     }
 }

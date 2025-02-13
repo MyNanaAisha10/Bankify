@@ -95,7 +95,7 @@ public class BankMenu
 
                 case 0:
                     Console.WriteLine("Exiting...");
-                    information = true;
+                    information = false;
                     break;
 
                 default:
